@@ -1,6 +1,6 @@
-import './component/todo/todo.css'
-import TodoNew from './component/todo/TodoNew'
-import TodoData from './component/todo/TodoData'
+import './components/todo/todo.css'
+import TodoNew from './components/todo/TodoNew'
+import TodoData from './components/todo/TodoData'
 import reactLogo from './assets/react.svg'
 import { useState } from 'react'
 
