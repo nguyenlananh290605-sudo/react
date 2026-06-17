@@ -31,3 +31,13 @@
     display: flex;
     justify-content: space-between;
 }
+
+.todo-image {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    transform-origin: center;
+}
