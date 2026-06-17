@@ -1,13 +1,20 @@
+import { useState } from "react";
+
 const TodoNew = (props) => {
-    console.log(">>check point: ", props);
+
+    //console.log(">>check point: ", props);
     const { addNewTodo } = props; //destructuring
     // addNewTodo("lan anh"); //goi ham addNewTodo tu App truyen vao
 
+    //useState  hook
+    //const valueInput="lan anh"
+    const [valueInput, setValueInput] = useState("lan anh")
     const handleClick = () => {
-        alert(">>click me");
+        console.log(">>>check value input", valueInput)
     }
     const handleOnChange = (name) => {
-        console.log(">>handle onChange: ", name);
+        setValueInput(name)
+
     }
     return (
         <div className='todo-new'>
@@ -17,6 +24,9 @@ const TodoNew = (props) => {
             <button style={{ cursor: 'pointer' }}
                 onClick={handleClick}
             > Add </button>
+            <div>
+                My text input is {valueInput}
+            </div>
         </div>
     )
 }
