@@ -9,8 +9,9 @@ const TodoNew = (props) => {
     //useState  hook
     //const valueInput="lan anh"
     const [valueInput, setValueInput] = useState("lan anh")
+
     const handleClick = () => {
-        console.log(">>>check value input", valueInput)
+        addNewTodo(valueInput)
     }
     const handleOnChange = (name) => {
         setValueInput(name)
