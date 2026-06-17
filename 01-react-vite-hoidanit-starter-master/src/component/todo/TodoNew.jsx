@@ -1,13 +1,8 @@
 import { useState } from "react";
 
 const TodoNew = (props) => {
-
-    //console.log(">>check point: ", props);
     const { addNewTodo } = props; //destructuring
-    // addNewTodo("lan anh"); //goi ham addNewTodo tu App truyen vao
 
-    //useState  hook
-    //const valueInput="lan anh"
     const [valueInput, setValueInput] = useState("lan anh")
 
     const handleClick = () => {
