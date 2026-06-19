@@ -1,80 +1,40 @@
 import { Flex, Space, Table, Tag } from 'antd';
-
+import { fetchAllUserAPI } from '../../services/api.service';
+import { useState } from 'react';
 
 const UserTable = () => {
+
+    const [dataUsers, setDataUser] = useState([
+        { _id: "lan anh", fullName: 25, email: "hn" },
+        { _id: "anh", fullName: 55, email: "hcm" }
+    ])
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            render: text => <a>{text}</a>,
+            title: 'Id',
+            dataIndex: '_id',
+
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
+            title: 'fullName',
+            dataIndex: 'fullName',
+
         },
         {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
+            title: 'Email',
+            dataIndex: 'email',
+
         },
-        {
-            title: 'Tags',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (_, { tags }) => (
-                <Flex gap="small" align="center" wrap>
-                    {tags.map(tag => {
-                        let color = tag.length > 5 ? 'geekblue' : 'green';
-                        if (tag === 'kawaii') {
-                            color = 'volcano';
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </Flex>
-            ),
-        },
-        {
-            title: 'Action',
-            key: 'action',
-            render: (_, record) => (
-                <Space size="medium">
-                    <a>Invite {record.name}</a>
-                    <a>Delete</a>
-                </Space>
-            ),
-        },
+
     ];
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['kawaii'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sydney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
+
+    const loadUser = async () => {
+        const res = await fetchAllUserAPI()
+        //setDataUser(res.data)
+    }
+    loadUser()
+    console.log(">>>>run")
     return (
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={dataUsers} />
     )
 
 }
