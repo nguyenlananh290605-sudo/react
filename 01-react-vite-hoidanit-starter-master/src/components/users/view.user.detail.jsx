@@ -55,7 +55,7 @@ const ViewUserDetail = (props) => {
         console.log(">>>check resUpload", resUpload)
         //update user
     }
-    console.log(">>check file", preview)
+
     return (
         <>
             <Drawer
