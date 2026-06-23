@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { Menu } from "antd"
-import { HomeOutlined, UsergroupAddOutlined, AuditOutlined, SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, UsergroupAddOutlined, AuditOutlined, SettingOutlined, LoginOutlined, AliwangwangOutlined } from '@ant-design/icons';
 import { Children, useState, useContext } from "react";
 import { AuthContext } from "../components/context/auth.context";
 
@@ -32,16 +32,16 @@ const Header = () => {
 
         },
         {
-            label: "Cài đặt",
-            key: 'Setting',
-            icon: <SettingOutlined />,
+            label: <Link to={"/login"}>Đăng nhập</Link>,
+            key: 'login',
+            icon: <LoginOutlined />,
+        },
+
+        {
+            label: "Welcome",
+            key: 'setting',
+            icon: <AliwangwangOutlined />,
             children: [
-                {
-                    label: <Link to="/login">Đăng nhập</Link>,
-                    key: 'login',
-
-                },
-
                 {
                     label: "Đăng xuất",
                     key: 'logout',
