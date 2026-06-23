@@ -3,15 +3,14 @@ import { Menu } from "antd"
 import { HomeOutlined, UsergroupAddOutlined, AuditOutlined, SettingOutlined, LoginOutlined, AliwangwangOutlined } from '@ant-design/icons';
 import { Children, useState, useContext } from "react";
 import { AuthContext } from "../components/context/auth.context";
+import { use } from "react";
 
 const Header = () => {
     const [current, setCurrent] = useState('');
 
     const { user } = useContext(AuthContext);
 
-    console.log(">>check data", user)
     const onClick = e => {
-        console.log('click ', e);
         setCurrent(e.key);
     };
     const items = [
@@ -31,14 +30,16 @@ const Header = () => {
             icon: <AuditOutlined />,
 
         },
-        {
+        ...(!user.id ? [{
+
             label: <Link to={"/login"}>Đăng nhập</Link>,
             key: 'login',
             icon: <LoginOutlined />,
-        },
 
-        {
-            label: "Welcome",
+        }] : []),
+        ...(user.id ? [{
+
+            label: `Welcome ${user.fullName}`,
             key: 'setting',
             icon: <AliwangwangOutlined />,
             children: [
@@ -49,8 +50,8 @@ const Header = () => {
                 },
 
             ],
-        }
 
+        }] : []),
     ];
     return (
         <Menu

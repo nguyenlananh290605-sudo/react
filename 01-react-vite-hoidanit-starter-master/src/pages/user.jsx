@@ -11,7 +11,6 @@ const UserPage = () => {
     //empty array =>run once
     //not empty => next value !== prev value
     useEffect(() => {
-        console.log(">>>>> run useEffect 1111")
         loadUser()
     }, [current, pageSize]); //[] +condition
     const loadUser = async () => {
@@ -24,7 +23,6 @@ const UserPage = () => {
         }
 
     }
-    console.log(">>>check pagesize", pageSize)
     return (
         <div style={{ padding: "20px" }}>
             <UserForm loadUser={loadUser} />

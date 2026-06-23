@@ -8,7 +8,6 @@ const RegisterPage = () => {
 
 
     const onFinish = async (values) => {
-        console.log(">>> check values", values)
 
         //call api
         const res = await registerUserAPI(

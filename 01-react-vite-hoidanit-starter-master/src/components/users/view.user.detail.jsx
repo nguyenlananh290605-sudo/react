@@ -52,7 +52,6 @@ const ViewUserDetail = (props) => {
                 description: JSON.stringify(resUpload.message)
             })
         }
-        console.log(">>>check resUpload", resUpload)
         //update user
     }
 
