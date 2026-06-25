@@ -2,12 +2,17 @@ import { Table, Button } from 'antd';
 import { EditOutlined, DeleteOutlined, } from '@ant-design/icons';
 import ViewDataDetail from './view.book.detail';
 import { useState } from 'react';
+import UpdateBookModalUncontrolled from './update.book.modal.uncontrolled';
+import UpdateBookModal from './update.book.modal';
 
 
 const BookTable = (props) => {
     const { dataBooks, loadBook,
         current, pageSize,
         setCurrent, setPageSize, total } = props;
+    const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+    const [dataUpdate, setDataUpdate] = useState(null);
+
 
     const [dataDetail, setDataDetail] = useState(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
@@ -67,7 +72,13 @@ const BookTable = (props) => {
             render: (_, record) => {
                 return (
                     <div style={{ display: "flex", gap: "20px" }}>
-                        <EditOutlined style={{ cursor: "pointer", color: "orange" }} />
+                        <EditOutlined
+                            onClick={() => {
+                                setDataUpdate(record);
+                                setIsModalUpdateOpen(true);
+                            }}
+                            style={{ cursor: "pointer", color: "orange" }}
+                        />
 
                         <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
                     </div >
@@ -107,6 +118,20 @@ const BookTable = (props) => {
                 onChange={onChange}
 
             />
+            <UpdateBookModal
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                loadBook={loadBook}
+            />
+            {/* <UpdateBookModalUncontrolled
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                loadBook={loadBook}
+            /> */}
             <ViewDataDetail
                 dataDetail={dataDetail}
                 setDataDetail={setDataDetail}
