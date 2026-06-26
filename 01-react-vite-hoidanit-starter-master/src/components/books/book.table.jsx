@@ -1,9 +1,10 @@
-import { Table, Button } from 'antd';
+import { Table, Button, Popconfirm, notification } from 'antd';
 import { EditOutlined, DeleteOutlined, } from '@ant-design/icons';
 import ViewDataDetail from './view.book.detail';
 import { useState } from 'react';
 import UpdateBookModalUncontrolled from './update.book.modal.uncontrolled';
 import UpdateBookModal from './update.book.modal';
+import { deleteBookAPI } from '../../services/api.service';
 
 
 const BookTable = (props) => {
@@ -17,6 +18,22 @@ const BookTable = (props) => {
     const [dataDetail, setDataDetail] = useState(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
 
+    const handleDeleteBook = async (id) => {
+        const res = await deleteBookAPI(id);
+        if (res.data) {
+            notification.success({
+                message: "Delete user",
+                description: "Xoa user thanh cong"
+            })
+            await loadBook();
+        }
+        else {
+            notification.error({
+                message: "Error delete user",
+                description: JSON.stringify(res.message)
+            })
+        }
+    }
     const columns = [
         {
             title: "STT",
@@ -80,7 +97,16 @@ const BookTable = (props) => {
                             style={{ cursor: "pointer", color: "orange" }}
                         />
 
-                        <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                        <Popconfirm
+                            title="Xoa nguoi dung"
+                            placement="leftTop"
+                            description={"Ban co chac chan xoa user nay?"}
+                            okText="Yes"
+                            cancelText="No"
+                            onConfirm={() => { handleDeleteBook(record._id) }}
+                        >
+                            <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                        </Popconfirm>
                     </div >
                 )
             },
@@ -118,20 +144,20 @@ const BookTable = (props) => {
                 onChange={onChange}
 
             />
-            <UpdateBookModal
-                isModalUpdateOpen={isModalUpdateOpen}
-                setIsModalUpdateOpen={setIsModalUpdateOpen}
-                dataUpdate={dataUpdate}
-                setDataUpdate={setDataUpdate}
-                loadBook={loadBook}
-            />
-            {/* <UpdateBookModalUncontrolled
+            {/* <UpdateBookModal
                 isModalUpdateOpen={isModalUpdateOpen}
                 setIsModalUpdateOpen={setIsModalUpdateOpen}
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
                 loadBook={loadBook}
             /> */}
+            <UpdateBookModalUncontrolled
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                loadBook={loadBook}
+            />
             <ViewDataDetail
                 dataDetail={dataDetail}
                 setDataDetail={setDataDetail}
