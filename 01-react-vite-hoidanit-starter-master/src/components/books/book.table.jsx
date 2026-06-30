@@ -142,6 +142,7 @@ const BookTable = (props) => {
                         showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
                     }}
                 onChange={onChange}
+            //loading={true}
 
             />
             {/* <UpdateBookModal
