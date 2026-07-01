@@ -9,7 +9,11 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     saveUser: (state, action) => {
-      state.value.push(action.payload)
+      const exists = state.value.some(item => item.id === action.payload.id)
+      if (!exists) {
+        state.value.push(action.payload)
+      }
+      console.log('USER action.payload', action.payload)
 
     },
   },

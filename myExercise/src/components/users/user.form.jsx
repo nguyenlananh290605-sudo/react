@@ -1,7 +1,7 @@
 import { useForm, Controller } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Form, Input, Button, Radio, Select } from 'antd'
+import { Form, Input, Button, Radio, Select, Divider } from 'antd'
 import { saveUser } from '../../features/userSlice'
 
 const UserForm = () => {
@@ -35,6 +35,7 @@ const UserForm = () => {
         { value: 'Đà Nẵng', label: 'Đà Nẵng' },
         { value: 'Hải Phòng', label: 'Hải Phòng' },
         { value: 'Cần Thơ', label: 'Cần Thơ' }
+
     ]
 
     return (
@@ -52,7 +53,13 @@ const UserForm = () => {
                     <Controller
                         name="staffCode"
                         control={control}
-                        rules={{ required: 'Mã CB không được để trống' }}
+                        rules={{
+                            required: 'Mã CB không được để trống',
+                            pattern: {
+                                value: /^[A-Z]{2}\d{4}$/i,
+                                message: 'Mã CB không đúng định dạng'
+                            }
+                        }}
                         render={({ field }) => <Input {...field} placeholder="Nhập mã cán bộ" />}
                     />
                 </Form.Item>
@@ -134,7 +141,7 @@ const UserForm = () => {
                         )}
                     />
                 </Form.Item>
-
+                <Divider />
                 <Form.Item>
                     <Button type="primary" htmlType="submit" block>
                         Đăng ký

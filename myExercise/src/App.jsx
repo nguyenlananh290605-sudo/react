@@ -1,38 +1,41 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import SearchInput from './components/searchInput'
-import TitleList from './components/titleList'
+import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Menu } from 'antd'
+import { SearchOutlined, UserAddOutlined, TeamOutlined } from '@ant-design/icons'
 
 function App() {
-  const [query, setQuery] = useState('css')
-  const [title, setTitle] = useState([])
-  const [searchQuery, setSearchQuery] = useState('')
+  const location = useLocation()
 
-  useEffect(() => {
-    if (searchQuery === '') {
-      setTitle([])
-      return
-    }
-
-    fetch(`https://hn.algolia.com/api/v1/search?query=${searchQuery}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const fetchTitle = data.hits.map((item) => item.title)
-        setTitle(fetchTitle)
-      })
-      .catch((err) => console.log('loi lay du lieu', err))
-  }, [searchQuery])
-
-  const handleSearch = () => {
-    setSearchQuery(query)
-  }
+  const items = [
+    {
+      label: <Link to="/">Tìm kiếm</Link>,
+      key: '/',
+      icon: <SearchOutlined />,
+    },
+    {
+      label: <Link to="/register">Tạo tài khoản</Link>,
+      key: '/register',
+      icon: <UserAddOutlined />,
+    },
+    {
+      label: <Link to="/users">Danh sách tài khoản</Link>,
+      key: '/users',
+      icon: <TeamOutlined />,
+    },
+  ]
 
   return (
-    <>
-      <SearchInput value={query} onChange={setQuery} onSearch={handleSearch} />
-      <TitleList titles={title}></TitleList>
 
-    </>
+    <div>
+      <Menu
+        selectedKeys={[location.pathname]}
+        mode="horizontal"
+        items={items}
+        style={{ justifyContent: 'center', marginBottom: '20px' }}
+      />
+      <div style={{ padding: '0 20px' }}>
+        <Outlet />
+      </div>
+    </div>
   )
 }
 

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import SearchInput from '../components/searchInput'
 import TitleList from '../components/titleList'
-import SearchHistory from '../components/searchHistory'
 import { addHistory } from '../features/historySearchSlice'
 
 const SearchPage = () => {
@@ -14,7 +13,7 @@ const SearchPage = () => {
   useEffect(() => {
     if (searchQuery === '') {
       setTitle([])
-      return
+      return;
     }
 
     fetch(`https://hn.algolia.com/api/v1/search?query=${searchQuery}`)
@@ -33,7 +32,7 @@ const SearchPage = () => {
 
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Tìm Kiếm Bài Viết</h2>
+      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Tìm Kiếm</h2>
       <SearchInput value={query} onChange={setQuery} onSearch={handleSearch} />
       <TitleList titles={title} />
       <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>

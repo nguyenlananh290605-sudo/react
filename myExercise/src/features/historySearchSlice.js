@@ -9,6 +9,7 @@ export const historySearchSlice = createSlice({
     initialState,
     reducers: {
         addHistory: (state, action) => {
+            console.log('history action.payload', action.payload)
             const exists = state.value.some(item => item.query === action.payload.query)
             if (!exists) {
                 state.value.push(action.payload)
