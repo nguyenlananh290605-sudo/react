@@ -1,6 +1,8 @@
 import { Button, Input } from "antd"
 import { SearchOutlined } from '@ant-design/icons';
 import "./style.css"
+import SearchHistory from "./searchHistory";
+
 const SearchInput = ({ value, onChange, onSearch }) => {
     return (
         <div className="input-search">
@@ -17,6 +19,7 @@ const SearchInput = ({ value, onChange, onSearch }) => {
             >
                 Fetching
             </Button>
+            <SearchHistory />
 
         </div>
     )

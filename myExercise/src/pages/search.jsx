@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
-import './App.css'
-import SearchInput from './components/searchInput'
-import TitleList from './components/titleList'
+import { useDispatch } from 'react-redux'
+import SearchInput from '../components/searchInput'
+import TitleList from '../components/titleList'
+import SearchHistory from '../components/searchHistory'
+import { addHistory } from '../features/historySearchSlice'
 
-function App() {
+const SearchPage = () => {
   const [query, setQuery] = useState('css')
   const [title, setTitle] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (searchQuery === '') {
@@ -19,6 +22,7 @@ function App() {
       .then((data) => {
         const fetchTitle = data.hits.map((item) => item.title)
         setTitle(fetchTitle)
+        dispatch(addHistory({ query: searchQuery, results: fetchTitle }))
       })
       .catch((err) => console.log('loi lay du lieu', err))
   }, [searchQuery])
@@ -28,12 +32,14 @@ function App() {
   }
 
   return (
-    <>
+    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Tìm Kiếm Bài Viết</h2>
       <SearchInput value={query} onChange={setQuery} onSearch={handleSearch} />
-      <TitleList titles={title}></TitleList>
-
-    </>
+      <TitleList titles={title} />
+      <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+      </div>
+    </div>
   )
 }
 
-export default App
+export default SearchPage
